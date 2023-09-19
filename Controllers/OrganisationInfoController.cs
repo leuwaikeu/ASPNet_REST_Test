@@ -1,28 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace Rest.Controllers
 {
     [Route("api/[controller]")]
-    public class OrganisationInfoController : Controller
+    public class OrganisationInfoController : BaseController
     {
+        private readonly string resource = "OrganisationInfo.json";
+
         [HttpGet]
         public IActionResult Get()
         {
-            var objOrganisationInfo = Libs.LibBase.Get<Models.OrganisationInfo>("OrganisationInfo.json");
-            return Ok(objOrganisationInfo);
+            return Get<Models.OrganisationInfo>(resource);
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Models.AppConfigs objOrganisationInfo)
+        [HttpPut]
+        public IActionResult Put([FromBody] Models.OrganisationInfo objOrganisationInfo)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(objOrganisationInfo);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Put(resource, objOrganisationInfo);
         }
     }
 }

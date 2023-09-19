@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0A6GhqKqoOMuejUXykwRvCQVZQCwWGOP/Hmj1W8wFB8l4Gw9vG9Gp5k5+g85dZXsHbMaLLOWFLSm5VmTHUO0eA==",
+  "dgSpecHash": "XtyU/qL+U3FS2QraK/zxIKR6z01vC2nJXfsOMkJmFv9qjV4Dd1rUR18W72ATbkQQE2oGJ6nIKvZXDrBaKRWe/g==",
   "success": true,
-  "projectFilePath": "D:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
+  "projectFilePath": "d:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Otto\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Otto\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj": {}
+    "d:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj": {}
   },
   "projects": {
-    "D:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj": {
+    "d:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
+        "projectUniqueName": "d:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
         "projectName": "ASPNet_REST_Test",
-        "projectPath": "D:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
+        "projectPath": "d:\\git\\ASPNet_REST_Test\\ASPNet_REST_Test.csproj",
         "packagesPath": "C:\\Users\\Otto\\.nuget\\packages\\",
-        "outputPath": "D:\\git\\ASPNet_REST_Test\\obj\\",
+        "outputPath": "d:\\git\\ASPNet_REST_Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Otto\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -5,20 +5,47 @@ namespace Rest.Libs
 {
     public abstract class LibBase
     {
-        protected static ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder
+        protected static readonly ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder
             .AddConsole()
             .AddDebug()
             .SetMinimumLevel(LogLevel.Debug)
         );
 
-        protected static RestClient client = new RestClient("https://test-backend-6cf33-default-rtdb.firebaseio.com/");
+        private static ILogger<LibBase> logger = loggerFactory.CreateLogger<LibBase>();
 
-        public static T Get<T>(string resource)
+        protected static readonly RestClient client = new("https://test-backend-6cf33-default-rtdb.firebaseio.com/");
+
+        public static RestResponse Get(string resource)
         {
-            var restRequest = new RestRequest(resource); ;
-            var restResponse = client.Get(restRequest);
-            T data = JsonSerializer.Deserialize<T>(restResponse.Content);
-            return data;
+            try
+            {
+                RestRequest restRequest = new(resource);
+                RestResponse restResponse = client.Get(restRequest);
+                return restResponse;
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"\tGetType: {e.GetType()}");
+                logger.LogError($"\tMessage: {e.Message}");
+                throw;
+            }
+        }
+
+        public static RestResponse Put<T>(string resource, T obj)
+        {
+            try
+            {
+                var restRequest = new RestRequest(resource);
+                restRequest.AddJsonBody(JsonSerializer.Serialize(obj));
+                RestResponse restResponse = client.ExecutePut(restRequest);
+                return restResponse;
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"\tGetType: {e.GetType()}");
+                logger.LogError($"\tMessage: {e.Message}");
+                throw;
+            }
         }
     }
 }
