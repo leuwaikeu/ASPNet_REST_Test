@@ -12,89 +12,26 @@ namespace Rest.Controllers
             .SetMinimumLevel(LogLevel.Debug)
         );
 
-        private static ILogger<ControllerBase> logger = loggerFactory.CreateLogger<ControllerBase>();
+        private static ILogger<BaseController> logger = loggerFactory.CreateLogger<BaseController>();
 
-        protected static readonly RestClient client = new("https://test-backend-6cf33-default-rtdb.firebaseio.com/");
-
-        protected IActionResult Get<T>(string resource)
+        protected IActionResult ExecuteRequest<T>(RestClient restClient, RestRequest restRequest)
         {
             try
             {
-                RestRequest restRequest = new(resource);
-                RestResponse restResponse = client.Get(restRequest);
-                T json = JsonSerializer.Deserialize<T>(restResponse.Content);
+                RestResponse restResponse = restClient.Execute(restRequest);
 
-                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                switch (restResponse.StatusCode)
                 {
-                    return Ok(json);
-                }
-                return StatusCode(int.Parse(restResponse.StatusCode.ToString()), json);
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"\tGetType: {e.GetType()}");
-                logger.LogError($"\tMessage: {e.Message}");
-                throw;
-            }
-        }
+                    case System.Net.HttpStatusCode.OK:
+                        T responseContent = JsonSerializer.Deserialize<T>(restResponse.Content);
+                        return Ok(responseContent);
 
-        protected IActionResult Put<T>(string resource, T obj)
-        {
-            try
-            {
-                var restRequest = new RestRequest(resource);
-                restRequest.AddJsonBody(JsonSerializer.Serialize(obj));
-                RestResponse restResponse = client.Put(restRequest);
-                T json = JsonSerializer.Deserialize<T>(restResponse.Content);
-                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return Ok(json);
-                }
-                return StatusCode(int.Parse(restResponse.StatusCode.ToString()), json);
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"\tGetType: {e.GetType()}");
-                logger.LogError($"\tMessage: {e.Message}");
-                throw;
-            }
-        }
+                    case System.Net.HttpStatusCode.NotFound:
+                        return NotFound();
 
-        protected IActionResult Post<T>(string resource, T obj)
-        {
-            try
-            {
-                var restRequest = new RestRequest(resource);
-                restRequest.AddJsonBody(JsonSerializer.Serialize(obj));
-                RestResponse restResponse = client.Post(restRequest);
-                T json = JsonSerializer.Deserialize<T>(restResponse.Content);
-                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return Ok(json);
+                    default:
+                        return BadRequest();
                 }
-                return StatusCode(int.Parse(restResponse.StatusCode.ToString()), json);
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"\tGetType: {e.GetType()}");
-                logger.LogError($"\tMessage: {e.Message}");
-                throw;
-            }
-        }
-
-        protected IActionResult Delete<T>(string resource, T obj)
-        {
-            try
-            {
-                var restRequest = new RestRequest(resource);
-                restRequest.AddJsonBody(JsonSerializer.Serialize(obj));
-                RestResponse restResponse = client.Delete(restRequest);
-                T json = JsonSerializer.Deserialize<T>(restResponse.Content);
-                if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return Ok(json);
-                }
-                return StatusCode(int.Parse(restResponse.StatusCode.ToString()), json);
             }
             catch (Exception e)
             {

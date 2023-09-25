@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Rest.Models
 {
-    public class DeviceInfo
+    public class DeviceInfo : IdBase
     {
         [Required]
         public string DeviceName { set; get; }

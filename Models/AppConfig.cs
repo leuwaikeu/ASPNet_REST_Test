@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Rest.Models
 {
-    public class AppConfig
+    public class AppConfig : IdBase
     {
         [Required]
         [StringLength(200)]
